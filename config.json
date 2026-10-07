@@ -1,0 +1,56 @@
+{
+  "telegram_token": "8657752163:AAFND9todhBuLmSMoUv0sZwDf2iMOPudhxk",
+  "telegram_chat_id": "921933731",
+  "watches": [
+    {
+      "il": "İstanbul",
+      "ilceler": [
+        "Adalar",
+        "Arnavutköy",
+        "Ataşehir",
+        "Avcılar",
+        "Bağcılar",
+        "Bahçelievler",
+        "Bakırköy",
+        "Başakşehir",
+        "Bayrampaşa",
+        "Beşiktaş",
+        "Beykoz",
+        "Beylikdüzü",
+        "Beyoğlu",
+        "Büyükçekmece",
+        "Büyükşehir",
+        "Çatalca",
+        "Çekmeköy",
+        "Esenler",
+        "Esenyurt",
+        "Eyüpsultan",
+        "Fatih",
+        "Gaziosmanpaşa",
+        "Güngören",
+        "Kadıköy",
+        "Kağıthane",
+        "Kartal",
+        "Küçükçekmece",
+        "Maltepe",
+        "Pendik",
+        "Sancaktepe",
+        "Sarıyer",
+        "Silivri",
+        "Sultanbeyli",
+        "Sultangazi",
+        "Şile",
+        "Şişli",
+        "Tuzla",
+        "Ümraniye",
+        "Üsküdar",
+        "Zeytinburnu"
+      ],
+      "kurs_adlari": [],
+      "anahtar": "havuz suyu operatörlüğü",
+      "bildirim_kurslari": [
+        "havuz suyu operatörlüğü"
+      ]
+    }
+  ]
+}
