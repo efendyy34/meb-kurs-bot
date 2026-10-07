@@ -1,0 +1,41 @@
+name: meb-takip
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: meb-takip
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Bağımlılıkları kur
+        run: pip install -r requirements.txt
+
+      - name: MEB sayfasını kontrol et
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python bot_v2.py
+
+      - name: Durumu kaydet
+        run: |
+          git config user.name "meb-bot"
+          git config user.email "meb-bot@users.noreply.github.com"
+          git add seen.json
+          git diff --cached --quiet || (git commit -m "durum güncellendi" && git push)
