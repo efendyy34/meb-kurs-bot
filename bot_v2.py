@@ -74,15 +74,27 @@ def telegram_send(cfg, text):
             cur = ""
         cur += line + "\n"
     chunks.append(cur)
-    for c in chunks:
-        r = requests.post(
-            f"https://api.telegram.org/bot{cfg['telegram_token']}/sendMessage",
-            data={"chat_id": cfg["telegram_chat_id"], "text": c,
-                  "parse_mode": "HTML", "disable_web_page_preview": "true"},
-            timeout=30,
-        )
-        if not r.ok:
-            raise RuntimeError(f"Telegram hatası {r.status_code}: {r.text[:200]}")
+    # telegram_chat_id birden fazla hedef içerebilir (virgülle ayrılmış): kişisel chat id'si,
+    # kanal için "@kanaladi" veya "-100..." gibi. Biri başarısız olsa diğerlerine gönderilir.
+    targets = [t for t in re.split(r"[,\s;]+", cfg["telegram_chat_id"]) if t]
+    errors, delivered = [], 0
+    for chat in targets:
+        try:
+            for c in chunks:
+                r = requests.post(
+                    f"https://api.telegram.org/bot{cfg['telegram_token']}/sendMessage",
+                    data={"chat_id": chat, "text": c,
+                          "parse_mode": "HTML", "disable_web_page_preview": "true"},
+                    timeout=30,
+                )
+                if not r.ok:
+                    raise RuntimeError(f"Telegram hatası {r.status_code}: {r.text[:200]}")
+            delivered += 1
+        except Exception as e:  # noqa: BLE001
+            errors.append(f"{chat}: {e}")
+            print(f"UYARI: {chat} hedefine gönderilemedi: {e}", file=sys.stderr)
+    if not delivered:
+        raise RuntimeError("Mesaj hiçbir Telegram hedefine gönderilemedi: " + " | ".join(errors))
 
 
 # ------------------------------------------------------- ASP.NET form işlemleri
