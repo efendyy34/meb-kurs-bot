@@ -1,6 +1,4 @@
 {
-  "telegram_token": "8657752163:AAFND9todhBuLmSMoUv0sZwDf2iMOPudhxk",
-  "telegram_chat_id": "921933731",
   "watches": [
     {
       "il": "İstanbul",
@@ -50,6 +48,15 @@
       "anahtar": "havuz suyu operatörlüğü",
       "bildirim_kurslari": [
         "havuz suyu operatörlüğü"
+      ]
+    },
+    {
+      "il": "İstanbul",
+      "ilceler": [],
+      "kurs_adlari": [],
+      "anahtar": "bilgisayar işletmenliği",
+      "bildirim_kurslari": [
+        "bilgisayar işletmenliği"
       ]
     }
   ]
