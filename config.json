@@ -58,6 +58,24 @@
       "bildirim_kurslari": [
         "bilgisayar işletmenliği"
       ]
+    },
+    {
+      "il": "İstanbul",
+      "ilceler": [],
+      "kurs_adlari": [],
+      "anahtar": "kalorifer ateşçisi",
+      "bildirim_kurslari": [
+        "kalorifer ateşçisi"
+      ]
+    },
+    {
+      "il": "İstanbul",
+      "ilceler": [],
+      "kurs_adlari": [],
+      "anahtar": "hijyen eğitimi",
+      "bildirim_kurslari": [
+        "çalışanlar için hijyen eğitimi"
+      ]
     }
   ]
 }
