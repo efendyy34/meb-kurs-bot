@@ -2,7 +2,7 @@ name: meb-takip
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -34,8 +34,24 @@ jobs:
         run: python bot_v2.py
 
       - name: Durumu kaydet
+        if: always()
         run: |
           git config user.name "meb-bot"
           git config user.email "meb-bot@users.noreply.github.com"
           git add seen.json
-          git diff --cached --quiet || (git commit -m "durum güncellendi" && git push)
+          if git diff --cached --quiet; then
+            echo "Durum değişmedi."
+            exit 0
+          fi
+          git commit -m "durum güncellendi"
+          # GitHub geçici sunucu hatası (500) verirse tekrar dene
+          for i in 1 2 3 4 5; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push başarısız (deneme $i/5), bekleyip tekrar deneniyor..."
+            sleep $((i * 8))
+            git pull --rebase || true
+          done
+          echo "Durum 5 denemede de kaydedilemedi."
+          exit 1
